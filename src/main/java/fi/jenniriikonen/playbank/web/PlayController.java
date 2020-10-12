@@ -90,13 +90,13 @@ public class PlayController {
 	    }
 	    
 	  // REST
-	    // RESTful service to get all books
+	    // RESTful service to get all plays
 	    @RequestMapping(value="/restplays", method = RequestMethod.GET)
 	    public @ResponseBody List<Play> PlayListRest() {	
 	        return (List<Play>) prepository.findAll();
 	    }    
 
-		// RESTful service to get book by id
+		// RESTful service to get play by id
 	    @RequestMapping(value="/restplay/{id}", method = RequestMethod.GET)
 	    public @ResponseBody Optional<Play> findPlayRest(@PathVariable("id") Long playid) {	
 	    	return prepository.findById(playid);
