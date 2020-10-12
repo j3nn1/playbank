@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+	<title>Leikkipankki</title>
+	<!-- Boostrap -->
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+	<h1>This is an admin page</h1>
+	
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>User</th>
+				<th>Role</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each = "user : ${users}">
+				<td th:text="${user.username}">
+				<td th:text="${user.role}">
+		</tbody>
+	</table>
+	
+	<a sec:authorize="hasAuthority('ADMIN')" href="/playlist">Go back</a> 
+</div>
+</body>

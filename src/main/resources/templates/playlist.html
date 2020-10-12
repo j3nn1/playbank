@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+	<title>Leikkipankki</title>
+	<!-- Boostrap -->
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+	<h3 th:inline="text">Welcome [[${#httpServletRequest.remoteUser}]]</h3>
+	
+	<!-- Logout is handled by Spring boot security -->
+	<div  class="form-group">
+	<form th:action="@{/logout}" method="post">
+		<button type="submit" class="btn btn-default">Sign out</button>
+	</form>
+	</div>
+	
+	<a sec:authorize="hasAuthority('ADMIN')" href="/admin">Admin page</a> 
+			
+	<h1>List of plays</h1>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>Title</th>
+				<th>Description</th>
+				<th>Players at least</th>
+				<th>Minimum age recommendation</th>
+				<th>Category</th>
+				<th></th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each = "play : ${plays}">
+				<td th:text="${play.title}">
+				<td th:text="${play.description}">
+				<td th:text="${play.playersmincount}">
+				<td th:text="${play.palyerminage}">
+				<td th:text="${play.category.name}">
+				<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/delete/{id}(id=${play.id})}">Delete</a></td>
+				<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/edit/{id}(id=${play.id})}">Edit</a></td> 
+			</tr>
+		</tbody>
+	</table>
+
+	 <a href="/add">Add Play</a>   
+	 
+</div>
+</body>
